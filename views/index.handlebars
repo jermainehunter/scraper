@@ -6,10 +6,12 @@
 
         <h1>BBC Scraper</h1>
 
-
-        <button id="scraper-button" type="button" class="btn btn-info">Scrape New Articles</button>
-        <button id="clear-button" type="button" class="btn btn-danger">Clear Articles</button>
-
+        <ul class="nav navbar-nav navbar-right">
+            <li> <button id="scraper-button" type="button" class="btn btn-info">Scrape New Articles</button></li>
+            &nbsp;&nbsp;
+            &nbsp; <li> <button id="clear-button" type="button" class="btn view-saved btn-danger">View Saved
+                    Articles</button></li>
+        </ul>
     </div>
 </nav>
 <div id="main-picture"><img src="../public/images/131108_bbcsport_studios_001.jpg"></div>
@@ -18,14 +20,18 @@
         {{#each articles}}
         <hr>
         <h3 class="art-title">{{title}}</h3>
-        <a href="https://www.bbc.co.uk{{link}}" target="_blank"><button type="submit" class="btn btn-primary btn-sm">Go to Article</button></a>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success btn-sm">Save Article</button>
+        <a href="https://www.bbc.co.uk{{link}}" target="_blank"><button type="submit" class="btn btn-primary btn-sm">Go
+                to Article</button></a>&nbsp;&nbsp;&nbsp;<button type="submit" data-id="{{_id}}"
+            class="btn btn-success save btn-sm">Save
+            Article</button>
         <hr width="35%" align="left">
         <h6>Article Comments</h6>
         {{#each comments}}
-        <p>{{body}}</p>
+        <p>{{body}}</p><button data-id="{{_id}}" class="btn btn-danger delete btn-sm">Delete
+            Comment</button>
         <small>{{createdDate}}</small>
         {{/each}}
-        
+
 
         <form action="/api/{{_id}}/comment" method="POST">
             <div class="form-group">
@@ -39,15 +45,43 @@
 </div>
 <script>
 
+
+
+    //$("#scraper-button").click(function () {
+    //  $("#article-container").show();
+    //$("#main-picture").hide();
+    // });
+
     $("#scraper-button").on("click", function () {
         $.get("/scrape", function (data) {
             location.reload();
-              $("#article-container").show();
-            $("#main-picture").hide();
-          
-
         })
-
     })
-    
+
+    $(".save").on("click", function () {
+        $.get("/api/save-article/" + $(this).attr("data-id"), function (data) {
+            console.log(data);
+            alert("Article was added to Saved List!")
+        });
+
+    });
+
+    $(".delete").on("click", function () {
+        $.get("/api/delete-comment/" + $(this).attr("data-id"), function (data) {
+            console.log(data);
+            alert("Comment was deleted!")
+            location.reload();
+        });
+
+    });
+
+       $(".view-saved").on("click", function () {
+     location = "/saved";
+
+    });
+
+
+
+
+
 </script>

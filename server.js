@@ -38,6 +38,16 @@ app.get("/", function (req, res) {
 
 });
 
+// Route for saved articles
+app.get("/saved", function (req, res) {
+    db.Article.find({saved:true})
+    .populate("comments")
+        .then(dbArticle => {
+            res.render("index", { articles: dbArticle });
+        })
+
+});
+
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", (req, res) => {
@@ -84,6 +94,32 @@ app.post("/api/:articleId/comment", (req, res) => {
         .then(() => res.redirect("/"))
         .catch(err => res.json(err));
 });
+
+// route for saving articles
+
+app.get("/api/save-article/:articleId", (req, res) => {
+    db.Article.findOneAndUpdate({_id: req.params.articleId}, { saved: true})
+    .then(function(result){
+       res.send("worked")
+        
+    })
+    .catch(function(error){
+        res.send(error)
+    })
+})
+
+// route for saving articles
+
+app.get("/api/delete-comment/:commentId", (req, res) => {
+    db.Comment.findOneAndRemove({_id: req.params.commentId})
+    .then(function(result){
+       res.send("worked")
+        
+    })
+    .catch(function(error){
+        res.send(error)
+    })
+})
 
 
 
