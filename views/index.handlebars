@@ -12,18 +12,20 @@
 
     </div>
 </nav>
-<div class="main-pad">
+<div id="main-picture"><img src="../public/images/131108_bbcsport_studios_001.jpg"></div>
+<div class="main-pad" id="article-container">
     <div class="container">
         {{#each articles}}
         <hr>
         <h3 class="art-title">{{title}}</h3>
-        <a href="https://www.bbc.co.uk{{link}}" target="_blank">Go to Article</a>
-        <hr width="20%" align="left">
+        <a href="https://www.bbc.co.uk{{link}}" target="_blank"><button type="submit" class="btn btn-primary btn-sm">Go to Article</button></a>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success btn-sm">Save Article</button>
+        <hr width="35%" align="left">
         <h6>Article Comments</h6>
         {{#each comments}}
         <p>{{body}}</p>
         <small>{{createdDate}}</small>
         {{/each}}
+        
 
         <form action="/api/{{_id}}/comment" method="POST">
             <div class="form-group">
@@ -40,7 +42,12 @@
     $("#scraper-button").on("click", function () {
         $.get("/scrape", function (data) {
             location.reload();
+              $("#article-container").show();
+            $("#main-picture").hide();
+          
+
         })
 
     })
+    
 </script>
