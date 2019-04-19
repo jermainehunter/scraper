@@ -3,7 +3,18 @@
     font-family: 'Playfair Display', serif;
 }
 
+.comment-text
+{
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+}
+
 .main-pad
 {
     padding-top: 100px;
+}
+
+.delete-button
+{
+    margin-left: 20px;
 }

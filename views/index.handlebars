@@ -4,12 +4,15 @@
         <img src="http://www.radiofreeskaro.com/wp-content/uploads/2011/06/BBC+Logo.jpg" width="100px" height="48px">
 
 
-        <h1>BBC Scraper</h1>
+        <h1 class="home">BBC Scraper</h1>
 
         <ul class="nav navbar-nav navbar-right">
-            <li> <button id="scraper-button" type="button" class="btn btn-info">Scrape New Articles</button></li>
+           <li> <button id="home" type="button" class="btn home btn-info">Home</button></li>
             &nbsp;&nbsp;
-            &nbsp; <li> <button id="clear-button" type="button" class="btn view-saved btn-danger">View Saved
+            &nbsp; <li>
+                 <li> <button id="scraper-button" type="button" class="btn btn-info">Scrape New Articles</button></li>
+            &nbsp;&nbsp;
+            &nbsp; <li> <button id="clear-button" type="button" class="btn view-saved btn-success">View Saved
                     Articles</button></li>
         </ul>
     </div>
@@ -27,8 +30,8 @@
         <hr width="35%" align="left">
         <h6>Article Comments</h6>
         {{#each comments}}
-        <p>{{body}}</p><button data-id="{{_id}}" class="btn btn-danger delete btn-sm">Delete
-            Comment</button>
+        <p class="comment-text">{{body}}<button data-id="{{_id}}" class="btn btn-danger delete-button delete btn-sm">Delete
+            Comment</button></p>
         <small>{{createdDate}}</small>
         {{/each}}
 
@@ -77,6 +80,11 @@
 
        $(".view-saved").on("click", function () {
      location = "/saved";
+
+    });
+
+        $(".home").on("click", function () {
+     location = "/";
 
     });
 
