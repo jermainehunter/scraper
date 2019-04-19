@@ -92,7 +92,11 @@ app.post("/api/:articleId/comment", (req, res) => {
             return db.Article.findOneAndUpdate({_id: req.params.articleId}, {$push: { comments: dbComment._id}}, {new: true})
         })
         .then(() => res.redirect("/"))
-        .catch(err => res.json(err));
+        // .catch(err => res.json(err));
+        .catch(err => {
+            // If an error occurred, log it
+            console.log(err);
+        });
 });
 
 // route for saving articles
@@ -116,10 +120,14 @@ app.get("/api/delete-comment/:commentId", (req, res) => {
        res.send("worked")
         
     })
-    .catch(function(error){
-        res.send(error)
-    })
-})
+    // .catch(function(error){
+    //     res.send(error)
+    // })
+    .catch(err => {
+        // If an error occurred, log it
+        console.log(err);
+    });
+});
 
 
 
