@@ -47,12 +47,7 @@
     </div>
 </div>
 <script>
-
-
-
-
-
-    $("#scraper-button").on("click", function () {
+ $("#scraper-button").on("click", function () {
         $.get("/scrape", function (data) {
             location.reload();
         })
