@@ -26,7 +26,14 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/bbcScraper", { useNewUrlParser: true, useCreateIndex: true });
+// mongoose.connect("mongodb://localhost/bbcScraper", { useNewUrlParser: true, useCreateIndex: true });
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/bbcScraper";
+
+mongoose
+    .connect(MONGODB_URI, { useNewUrlParser: true }, (err) => {
+        if(err) throw err;
+        console.log("Database Connected!");
+    });
 
 // Routes
 app.get("/", function (req, res) {
